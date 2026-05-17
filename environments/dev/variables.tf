@@ -1,16 +1,11 @@
-variable "project_id" {
-  description = "GCP project ID for the dev environment"
+variable "app_name" {
+  description = "Name of the application"
   type        = string
+  default     = "my-app"
 }
 
-variable "region" {
-  description = "GCP region to deploy into"
+variable "db_url" {
+  description = "Database connection URL"
   type        = string
-  default     = "us-central1"
-}
-
-variable "subnet_cidr" {
-  description = "CIDR range for the dev VPC subnet"
-  type        = string
-  default     = "10.0.0.0/24"
+  sensitive   = true
 }

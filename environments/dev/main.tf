@@ -2,27 +2,26 @@ terraform {
   required_version = "= 1.7.0"
 
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "= 7.32.0"
+    local = {
+      source  = "hashicorp/local"
+      version = "= 2.9.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "= 3.9.0"
     }
   }
 
-  backend "gcs" {
-    bucket = "my-company-terraform-state"
-    prefix = "dev"
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }
 
-provider "google" {
-  project = var.project_id
-  region  = var.region
-}
-
-module "vpc" {
-  source      = "../../modules/vpc"
-  project_id  = var.project_id
-  region      = var.region
+module "app_config" {
+  source      = "../../modules/app-config"
+  app_name    = var.app_name
   environment = "dev"
-  subnet_cidr = var.subnet_cidr
+  port        = 8080
+  log_level   = "debug"
+  db_url      = var.db_url
 }

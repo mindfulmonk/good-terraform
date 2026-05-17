@@ -1,7 +1,5 @@
 # Copy this file to terraform.tfvars and fill in real values.
 # terraform.tfvars is in .gitignore — never commit it.
-# Prod uses a separate GCP project from dev for blast radius isolation.
 
-project_id  = "your-gcp-prod-project-id"
-region      = "us-central1"
-subnet_cidr = "10.1.0.0/24"
+app_name = "my-app"
+db_url   = "postgres://user:password@prod-db.internal:5432/myapp_prod"
