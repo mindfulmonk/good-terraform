@@ -16,7 +16,7 @@ assignees: ''
 
 ## Proposed implementation
 
-<!-- Rough idea of the GCP resources and Terraform modules involved -->
+<!-- Rough idea of the Terraform resources and modules involved -->
 
 ## Acceptance criteria
 

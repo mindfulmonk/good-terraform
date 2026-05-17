@@ -20,8 +20,8 @@ terraform {
 module "app_config" {
   source      = "../../modules/app-config"
   app_name    = var.app_name
-  environment = "dev"
-  port        = 8080
-  log_level   = "debug"
+  environment = "prod"
+  port        = 80
+  log_level   = "warn"
   db_url      = var.db_url
 }

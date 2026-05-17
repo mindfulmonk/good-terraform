@@ -2,4 +2,4 @@
 # terraform.tfvars is in .gitignore — never commit it.
 
 app_name = "my-app"
-db_url   = "postgres://user:password@localhost:5432/myapp_dev"
+db_url   = "postgres://user:password@prod-db.internal:5432/myapp_prod"

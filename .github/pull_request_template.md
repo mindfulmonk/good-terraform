@@ -14,7 +14,7 @@ Closes #
 
 - [ ] `terraform fmt -recursive` passes
 - [ ] `terraform validate` passes
-- [ ] `tfsec` shows no new HIGH/CRITICAL findings
+- [ ] `checkov` shows no new HIGH/CRITICAL findings
 - [ ] All variables have `description` set
 - [ ] No hardcoded values — using variables or data sources
 - [ ] `*.tfvars.example` updated if new variables were added
@@ -22,8 +22,8 @@ Closes #
 
 ## Testing
 
-<!-- How was this tested? Paste relevant `terraform plan` output or tfsec results. -->
+<!-- How was this tested? Paste relevant `terraform plan` output or checkov results. -->
 
 ## Security notes
 
-<!-- Any IAM changes, firewall rule changes, or newly public resources? -->
+<!-- Any new sensitive variables, open ports, or file permission changes? -->
