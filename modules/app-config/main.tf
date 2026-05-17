@@ -14,10 +14,6 @@ terraform {
 resource "random_password" "secret_key" {
   length  = 32
   special = false
-
-  lifecycle {
-    ignore_changes = [result]
-  }
 }
 
 resource "local_file" "app_config" {

@@ -24,8 +24,8 @@ variable "port" {
   default     = 8080
 
   validation {
-    condition     = var.port > 1024 && var.port < 65535
-    error_message = "port must be between 1024 and 65535."
+    condition     = var.port >= 1 && var.port <= 65535
+    error_message = "port must be between 1 and 65535."
   }
 }
 
