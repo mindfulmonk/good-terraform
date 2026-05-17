@@ -13,26 +13,26 @@
 ## Branch naming
 
 ```
-feat/add-cloud-sql-module
-fix/restrict-firewall-ingress
-chore/update-provider-versions
+feat/add-app-config-module
+fix/relax-port-validation
+chore/bump-provider-versions
 ```
 
 ## Commit messages
 
 ```
-feat: add Cloud SQL module with private IP
-fix: restrict firewall ingress to VPC CIDR
-chore: bump google provider to 5.1
+feat: add app-config module with local and random providers
+fix: relax port validation to allow privileged ports
+chore: bump random provider to 3.9.0
 ```
 
 ## Local setup
 
 ```bash
 pip install pre-commit && pre-commit install
-gcloud auth application-default login
 cp environments/dev/terraform.tfvars.example environments/dev/terraform.tfvars
-# Edit terraform.tfvars with your dev project ID
+# Edit terraform.tfvars with your values
+cd environments/dev && terraform init && terraform plan
 ```
 
 ## What the CI checks
@@ -42,11 +42,10 @@ cp environments/dev/terraform.tfvars.example environments/dev/terraform.tfvars
 | `terraform fmt` | Yes |
 | `terraform validate` (dev + prod) | Yes |
 | `checkov` | Yes |
-| `terraform plan` | No (requires WIF secrets) |
+| `terraform plan` (dev + prod) | No — posts output as PR comment if `DB_URL` secret is set |
 
 ## Never do these
 
 - Push directly to `main`
-- Commit `*.tfvars`, `credentials.json`, or `.terraform/`
+- Commit `*.tfvars` or `.terraform/`
 - Use `terraform apply` without a reviewed plan
-- Grant `roles/owner` to service accounts

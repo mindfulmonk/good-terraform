@@ -14,7 +14,6 @@ assignees: ''
 
 - Environment (dev / prod):
 - Terraform version:
-- GCP region:
 
 ## Observed behaviour
 
@@ -32,4 +31,4 @@ terraform plan
 
 ## Additional context
 
-<!-- Error output, logs, tfsec findings, etc -->
+<!-- Error output, logs, checkov findings, etc -->
