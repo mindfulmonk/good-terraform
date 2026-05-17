@@ -1,0 +1,62 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.tf"
+      - ".github/workflows/deploy.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-dev:
+    name: deploy to dev
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: "1.7.0"
+      - name: Init
+        run: terraform -chdir=environments/dev init
+      - name: Apply
+        env:
+          TF_VAR_db_url: ${{ secrets.DB_URL }}
+        run: terraform -chdir=environments/dev apply -auto-approve
+
+  deploy-test:
+    name: deploy to test
+    runs-on: ubuntu-latest
+    environment: test
+    needs: deploy-dev
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: "1.7.0"
+      - name: Init
+        run: terraform -chdir=environments/prod init
+      - name: Apply
+        env:
+          TF_VAR_db_url: ${{ secrets.DB_URL }}
+        run: terraform -chdir=environments/prod apply -auto-approve
+
+  deploy-prod:
+    name: deploy to prod
+    runs-on: ubuntu-latest
+    environment: prod
+    needs: deploy-test
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: "1.7.0"
+      - name: Init
+        run: terraform -chdir=environments/prod init
+      - name: Apply
+        env:
+          TF_VAR_db_url: ${{ secrets.DB_URL }}
+        run: terraform -chdir=environments/prod apply -auto-approve
