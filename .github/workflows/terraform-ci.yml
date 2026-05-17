@@ -54,6 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [validate, security]
     environment: dev
+    if: ${{ secrets.WIF_PROVIDER != '' }}
     steps:
       - uses: actions/checkout@v4
 
