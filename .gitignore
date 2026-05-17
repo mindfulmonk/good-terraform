@@ -16,6 +16,12 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
+# Credentials — never commit service account keys or certs
+credentials.json
+*.json.key
+*.pem
+*.p12
+
 # Terraform plan files
 *.tfplan
 tfplan
