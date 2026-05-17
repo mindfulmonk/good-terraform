@@ -54,10 +54,27 @@ jobs:
           output_format: cli
           soft_fail: false
 
+  check-secrets:
+    name: check secrets
+    runs-on: ubuntu-latest
+    outputs:
+      has_db_url: ${{ steps.check.outputs.has_db_url }}
+    steps:
+      - id: check
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+        run: |
+          if [ -n "$DB_URL" ]; then
+            echo "has_db_url=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_db_url=false" >> "$GITHUB_OUTPUT"
+          fi
+
   plan:
     name: terraform plan
     runs-on: ubuntu-latest
-    needs: [validate, security]
+    needs: [validate, security, check-secrets]
+    if: needs.check-secrets.outputs.has_db_url == 'true'
     strategy:
       matrix:
         environment: [dev, prod]
