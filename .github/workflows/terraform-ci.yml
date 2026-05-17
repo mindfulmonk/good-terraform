@@ -28,15 +28,18 @@ jobs:
     name: terraform validate
     runs-on: ubuntu-latest
     needs: fmt
+    strategy:
+      matrix:
+        environment: [dev, prod]
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "~1.7"
       - name: Init (no backend)
-        run: terraform -chdir=environments/dev init -backend=false
+        run: terraform -chdir=environments/${{ matrix.environment }} init -backend=false
       - name: Validate
-        run: terraform -chdir=environments/dev validate
+        run: terraform -chdir=environments/${{ matrix.environment }} validate
 
   security:
     name: tfsec

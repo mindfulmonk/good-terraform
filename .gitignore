@@ -3,9 +3,8 @@
 *.tfstate.backup
 *.tfstate.*.backup
 
-# Terraform directories
+# Terraform directories — .terraform.lock.hcl should be committed, not ignored
 .terraform/
-.terraform.lock.hcl
 
 # Variable files with real values — commit only .tfvars.example
 *.tfvars
