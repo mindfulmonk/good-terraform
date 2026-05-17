@@ -41,7 +41,7 @@ cp environments/dev/terraform.tfvars.example environments/dev/terraform.tfvars
 |---|---|
 | `terraform fmt` | Yes |
 | `terraform validate` (dev + prod) | Yes |
-| `tfsec` | Yes |
+| `checkov` | Yes |
 | `terraform plan` | No (requires WIF secrets) |
 
 ## Never do these

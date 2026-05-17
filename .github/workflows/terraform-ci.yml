@@ -42,15 +42,18 @@ jobs:
         run: terraform -chdir=environments/${{ matrix.environment }} validate
 
   security:
-    name: tfsec
+    name: checkov
     runs-on: ubuntu-latest
     needs: fmt
     steps:
-      - uses: actions/checkout@v4
-      - name: tfsec
-        uses: aquasecurity/tfsec-action@b466648d6e39e7c75324f25d83891162a721f2d6 # v1.0.3
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Checkov
+        uses: bridgecrewio/checkov-action@99bb2caf247dfd9f03cf984373bc6043d4e32ebf # v12.1347.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: .
+          framework: terraform
+          output_format: cli
+          soft_fail: false
 
   plan:
     name: terraform plan
