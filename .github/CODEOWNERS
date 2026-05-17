@@ -1,0 +1,15 @@
+# CODEOWNERS
+# Rules are evaluated last-match-wins, so put the wildcard first,
+# then override with more specific paths below.
+
+# Default owner for everything
+* @mindfulmonk
+
+# Production environment requires platform team sign-off
+/environments/prod/ @mindfulmonk
+
+# CI/CD changes require a second set of eyes
+/.github/ @mindfulmonk
+
+# Module changes owned by the infra leads
+/modules/ @mindfulmonk
