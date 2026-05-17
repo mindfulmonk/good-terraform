@@ -6,11 +6,13 @@ repos:
       - id: terraform_validate
       - id: terraform_tfsec
 
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.5.0
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.88.1
     hooks:
-      - id: detect-secrets
-        args: ["--baseline", ".secrets.baseline"]
+      - id: trufflehog
+        name: TruffleHog
+        stages: ["pre-commit", "pre-push"]
+        args: ["git", "file://.", "--since-commit", "HEAD", "--only-verified", "--fail"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
